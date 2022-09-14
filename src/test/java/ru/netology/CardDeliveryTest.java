@@ -47,6 +47,7 @@ public class CardDeliveryTest {
         //$("[data-test-id='replan-notification']>.notification__content").shouldHave(exactText("Встреча успешно забронирована на " + secondMeeting));
 
 
+
         // !!!!!!!!!
         // Сделал игнорируемымми строки:39,44,46,47 т.к. SUT не находит эти элементы по локатору.ISSUES прилагаю.
     }
