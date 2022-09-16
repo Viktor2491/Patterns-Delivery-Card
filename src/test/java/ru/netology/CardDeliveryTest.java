@@ -1,6 +1,7 @@
 package ru.netology;
 
 import com.codeborne.selenide.Condition;
+import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
@@ -22,13 +23,20 @@ public class CardDeliveryTest {
 
     @Test
     public void shouldRescheduleTheMeeting() {
+        val user = DataGenerator.Registration.generateClientPersonalData("ru");
+        val name = user.getFullName();
+        val phoneNumber = user.getPhoneNumber();
+        val city = user.getCity();
+
         String firstMeeting = generateDateOfMeeting(4);
         String secondMeeting = generateDateOfMeeting(10);
-        $("[data-test-id='city'] input").setValue(DataGenerator.Registration.generateClientPersonalData("ru").getCity());
+
+
+        $("[data-test-id='city'] input").setValue(city);
         $("[placeholder='Дата встречи']").sendKeys(Keys.chord(Keys.CONTROL, "a") + Keys.BACK_SPACE);
         $("[placeholder='Дата встречи']").setValue(firstMeeting);
-        $("[data-test-id='name'] input").setValue(DataGenerator.Registration.generateClientPersonalData("ru").getFullName());
-        $("[data-test-id='phone'] input").setValue(DataGenerator.Registration.generateClientPersonalData("ru").getPhoneNumber());
+        $("[data-test-id='name'] input").setValue(name);
+        $("[data-test-id='phone'] input").setValue(phoneNumber);
         $("[data-test-id=agreement] .checkbox__box").click();
         $x("//*[text()=\"Запланировать\"]").click();
         $("[data-test-id='success-notification']").shouldBe(visible, ofSeconds(15));
